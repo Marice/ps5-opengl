@@ -243,7 +243,8 @@ def require_ci_profile(sdk, config, name):
             "CI runtime configuration display-mode flag mismatch")
     require((sdk / "include/ps5_opengl_display_modes.h").is_file() == dynamic,
             "runtime display-mode header does not match the CI profile")
-    for flag in ("PS5_GPU_PRESENT_BATCH", "PS5_DRAW_PROFILE",
+    # PS5_DRAW_PROFILE is left out: this branch builds without per-draw profiling.
+    for flag in ("PS5_GPU_PRESENT_BATCH",
                  "PS5_MULTIDRAW_BATCH", "PS5_DEFERRED_DRAW_BATCH"):
         require(re.findall(r"(?:^|\s)-D" + flag + r"=([^\s]+)", config) == ["1"],
                 "CI runtime configuration is missing " + flag)
